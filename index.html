@@ -20,7 +20,7 @@
 
     <!-- Onboarding Form -->
     <div id="onboarding-page" style="display:none;">
-      <h2>Create Your Virtual Bio</h2>
+      <h2>Enter Your Profile Information</h2>
       <form id="onboarding-form">
         <input type="text" id="display-name" placeholder="Display Name" required>
         <input type="text" id="user-id" placeholder="@username" required>
@@ -28,7 +28,7 @@
         
         <label>Upload Profile Picture:</label>
         <input type="file" id="profile-pic" accept="image/*" required>
-        
+
         <h3>Add Social Media Links</h3>
         <input type="url" id="instagram" placeholder="Instagram">
         <input type="url" id="tiktok" placeholder="TikTok">
@@ -54,6 +54,12 @@
           <a id="tiktok-link" href="#" target="_blank">TikTok</a>
           <a id="twitter-link" href="#" target="_blank">Twitter</a>
         </div>
+      </div>
+
+      <div id="sharable-link-section">
+        <p>Share your bio with others:</p>
+        <input type="text" id="sharable-link" readonly>
+        <button id="copy-link-btn">Copy Link</button>
       </div>
 
       <div id="watermark">Powered by Virtual Bio</div>

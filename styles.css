@@ -61,3 +61,24 @@ button:hover {
   margin-top: 20px;
   opacity: 0.5;
 }
+#sharable-link-section {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#sharable-link {
+  width: 80%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#copy-link-btn {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}

@@ -6,6 +6,7 @@
   font-family: 'Arial', sans-serif;
 }
 
+/* Style the body to center the login form */
 body {
   background-color: #121212;
   color: #ffffff;
@@ -15,6 +16,7 @@ body {
   align-items: center;
 }
 
+/* Login form container with a modern look */
 .login-container {
   background-color: #1e1e1e;
   padding: 30px 40px;
@@ -24,11 +26,13 @@ body {
   width: 300px;
 }
 
+/* Header style */
 .login-container h1 {
   margin-bottom: 20px;
   font-size: 24px;
 }
 
+/* Login form styling */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -44,10 +48,12 @@ body {
   font-size: 16px;
 }
 
+/* Placeholder text color */
 .login-form input::placeholder {
   color: #cccccc;
 }
 
+/* Button styling */
 .login-form button {
   padding: 10px;
   border: none;

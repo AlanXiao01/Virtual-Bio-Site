@@ -67,3 +67,13 @@ document.getElementById('edit-bio-btn').addEventListener('click', () => {
   document.getElementById('profile-page').style.display = 'none';
   document.getElementById('onboarding-page').style.display = 'block';
 });
+
+// Copy Link Button Functionality
+document.getElementById('copy-link-btn').addEventListener('click', () => {
+  const sharableLink = document.getElementById('sharable-link').value;
+  navigator.clipboard.writeText(sharableLink).then(() => {
+    alert('Link copied to clipboard!');
+  }).catch((err) => {
+    console.error('Failed to copy: ', err);
+  });
+});

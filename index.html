@@ -3,67 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Virtual Bio Card Creator</title>
+  <title>Virtual Bio Login</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="app">
-    <!-- Login Section -->
-    <div id="login-page">
-      <h1>Login to Your Bio</h1>
-      <form id="login-form">
-        <input type="text" id="login-username" placeholder="@username" required>
-        <button type="submit">Login</button>
-      </form>
-    </div>
-
-    <!-- Onboarding Form -->
-    <div id="onboarding-page" style="display:none;">
-      <h2>Create Your Virtual Bio</h2>
-      <form id="onboarding-form">
-        <input type="text" id="display-name" placeholder="Display Name" required>
-        <input type="text" id="user-id" placeholder="@username" required>
-        <textarea id="profile-description" placeholder="Tell us about yourself..." required></textarea>
-
-        <label>Upload Profile Picture:</label>
-        <input type="file" id="profile-pic" accept="image/*" required>
-
-        <h3>Add Social Media Links</h3>
-        <input type="url" id="instagram" placeholder="Instagram">
-        <input type="url" id="tiktok" placeholder="TikTok">
-        <input type="url" id="twitter" placeholder="Twitter">
-
-        <h3>Choose Theme Colors</h3>
-        <input type="color" id="bg-color" value="#000000"> Background Color<br>
-        <input type="color" id="text-color" value="#FFFFFF"> Text Color<br>
-
-        <button type="submit">Save Bio</button>
-      </form>
-    </div>
-
-    <!-- Profile Page -->
-    <div id="profile-page" style="display:none;">
-      <div id="profile-container">
-        <img id="profile-pic-display" src="#" alt="Profile Picture">
-        <h1 id="display-name-display"></h1>
-        <p id="profile-description-display"></p>
-
-        <div id="social-links">
-          <a id="instagram-link" href="#" target="_blank">Instagram</a>
-          <a id="tiktok-link" href="#" target="_blank">TikTok</a>
-          <a id="twitter-link" href="#" target="_blank">Twitter</a>
-        </div>
-      </div>
-
-      <div id="sharable-link-section">
-        <p>Share your bio with others:</p>
-        <input type="text" id="sharable-link" readonly>
-        <button id="copy-link-btn">Copy Link</button>
-      </div>
-
-      <button id="edit-bio-btn">Edit Bio</button>
-      <div id="watermark">Powered by Virtual Bio</div>
-    </div>
+  <div class="login-container">
+    <h1>Login to Your Bio</h1>
+    <form id="login-form" class="login-form">
+      <input type="text" id="login-username" placeholder="@username" required />
+      <button type="submit">Login</button>
+    </form>
   </div>
 
   <script src="script.js"></script>

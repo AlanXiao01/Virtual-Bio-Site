@@ -1,14 +1,14 @@
+// Handle Login
 document.getElementById('login-form').addEventListener('submit', (e) => {
   e.preventDefault();
-  // Assume login is successful and show onboarding form
   document.getElementById('login-page').style.display = 'none';
   document.getElementById('onboarding-page').style.display = 'block';
 });
 
+// Handle Onboarding Form Submission
 document.getElementById('onboarding-form').addEventListener('submit', (e) => {
   e.preventDefault();
 
-  // Capture profile data
   const displayName = document.getElementById('display-name').value;
   const userId = document.getElementById('user-id').value;
   const description = document.getElementById('profile-description').value;
@@ -22,34 +22,51 @@ document.getElementById('onboarding-form').addEventListener('submit', (e) => {
   const profilePic = document.getElementById('profile-pic').files[0];
   const reader = new FileReader();
   reader.onload = function (e) {
-    localStorage.setItem('profilePic', e.target.result);
-    displayProfile();
+    localStorage.setItem(`${userId}-profilePic`, e.target.result);
+    displayProfile(userId);
   };
   reader.readAsDataURL(profilePic);
 
-  // Store other profile data in local storage
-  localStorage.setItem('displayName', displayName);
-  localStorage.setItem('userId', userId);
-  localStorage.setItem('description', description);
-  localStorage.setItem('bgColor', bgColor);
-  localStorage.setItem('textColor', textColor);
-  localStorage.setItem('instagram', instagram);
-  localStorage.setItem('tiktok', tiktok);
-  localStorage.setItem('twitter', twitter);
+  localStorage.setItem(`${userId}-displayName`, displayName);
+  localStorage.setItem(`${userId}-description`, description);
+  localStorage.setItem(`${userId}-bgColor`, bgColor);
+  localStorage.setItem(`${userId}-textColor`, textColor);
+  localStorage.setItem(`${userId}-instagram`, instagram);
+  localStorage.setItem(`${userId}-tiktok`, tiktok);
+  localStorage.setItem(`${userId}-twitter`, twitter);
 
   document.getElementById('onboarding-page').style.display = 'none';
   document.getElementById('profile-page').style.display = 'block';
+
+  const sharableLink = `${window.location.origin}/@${userId}`;
+  document.getElementById('sharable-link').value = sharableLink;
 });
 
-function displayProfile() {
-  document.getElementById('profile-pic-display').src = localStorage.getItem('profilePic');
-  document.getElementById('display-name-display').textContent = localStorage.getItem('displayName');
-  document.getElementById('profile-description-display').textContent = localStorage.getItem('description');
+// Display Profile Data
+function displayProfile(userId) {
+  document.getElementById('profile-pic-display').src = localStorage.getItem(`${userId}-profilePic`);
+  document.getElementById('display-name-display').textContent = localStorage.getItem(`${userId}-displayName`);
+  document.getElementById('profile-description-display').textContent = localStorage.getItem(`${userId}-description`);
 
-  document.getElementById('profile-page').style.backgroundColor = localStorage.getItem('bgColor');
-  document.getElementById('profile-page').style.color = localStorage.getItem('textColor');
+  document.getElementById('profile-page').style.backgroundColor = localStorage.getItem(`${userId}-bgColor`);
+  document.getElementById('profile-page').style.color = localStorage.getItem(`${userId}-textColor`);
 
-  document.getElementById('instagram-link').href = localStorage.getItem('instagram');
-  document.getElementById('tiktok-link').href = localStorage.getItem('tiktok');
-  document.getElementById('twitter-link').href = localStorage.getItem('twitter');
+  document.getElementById('instagram-link').href = localStorage.getItem(`${userId}-instagram`);
+  document.getElementById('tiktok-link').href = localStorage.getItem(`${userId}-tiktok`);
+  document.getElementById('twitter-link').href = localStorage.getItem(`${userId}-twitter`);
 }
+
+// Handle Profile Routing
+const path = window.location.pathname;
+if (path.startsWith('/@')) {
+  const userId = path.split('@')[1];
+  displayProfile(userId);
+}
+
+// Copy Link Button Logic
+document.getElementById('copy-link-btn').addEventListener('click', () => {
+  const linkInput = document.getElementById('sharable-link');
+  linkInput.select();
+  document.execCommand('copy');
+  alert('Link copied to clipboard!');
+});

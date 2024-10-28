@@ -77,3 +77,35 @@ document.getElementById('copy-link-btn').addEventListener('click', () => {
     console.error('Failed to copy: ', err);
   });
 });
+
+// On page load, check if a user parameter is in the URL
+window.onload = function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const userId = urlParams.get('user');
+
+  if (userId) {
+    if (localStorage.getItem(`${userId}-displayName`)) {
+      displayProfile(userId); // If bio exists, display it
+    } else {
+      alert('Bio not found for this user.');
+    }
+  }
+};
+
+function displayProfile(userId) {
+  document.getElementById('profile-page').style.display = 'block';
+  document.getElementById('profile-pic-display').src = localStorage.getItem(`${userId}-profilePic`);
+  document.getElementById('display-name-display').textContent = localStorage.getItem(`${userId}-displayName`);
+  document.getElementById('profile-description-display').textContent = localStorage.getItem(`${userId}-description`);
+  document.body.style.backgroundColor = localStorage.getItem(`${userId}-bgColor`);
+  document.body.style.color = localStorage.getItem(`${userId}-textColor`);
+  
+  document.getElementById('instagram-link').href = localStorage.getItem(`${userId}-instagram`);
+  document.getElementById('tiktok-link').href = localStorage.getItem(`${userId}-tiktok`);
+  document.getElementById('twitter-link').href = localStorage.getItem(`${userId}-twitter`);
+
+  // Generate the sharable link using query parameters
+  const sharableLink = `${window.location.origin}?user=${userId}`;
+  document.getElementById('sharable-link').value = sharableLink;
+}
+

@@ -95,3 +95,23 @@ window.onload = function () {
     document.getElementById('login-page').style.display = 'block';
   }
 };
+
+// Handle Login
+document.getElementById('login-form').addEventListener('submit', (e) => {
+  e.preventDefault(); // Prevent form refresh on submit
+  const username = document.getElementById('login-username').value;
+
+  // Check if the user has an existing bio stored in localStorage
+  if (localStorage.getItem(`${username}-displayName`)) {
+    displayProfile(username); // Redirect to profile page if bio exists
+  } else {
+    alert('No bio found for this username. Please create one.');
+    window.location.href = 'onboarding.html'; // Redirect to onboarding if no bio found
+  }
+});
+
+// Function to redirect to the profile page
+function displayProfile(userId) {
+  window.location.href = `profile.html?user=${userId}`; // Pass username as query param
+}
+

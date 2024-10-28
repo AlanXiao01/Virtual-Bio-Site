@@ -6,7 +6,6 @@
   font-family: 'Arial', sans-serif;
 }
 
-/* Style the body to center the login form */
 body {
   background-color: #121212;
   color: #ffffff;
@@ -16,31 +15,37 @@ body {
   align-items: center;
 }
 
-/* Login form container with a modern look */
-.login-container {
+.page {
+  display: none;
+  width: 100%;
+  max-width: 400px;
+}
+
+.page.active {
+  display: block;
+}
+
+.login-container, .onboarding-container, .profile-container {
   background-color: #1e1e1e;
   padding: 30px 40px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: center;
-  width: 300px;
+  width: 100%;
 }
 
-/* Header style */
-.login-container h1 {
+h1, h2 {
   margin-bottom: 20px;
-  font-size: 24px;
 }
 
-/* Login form styling */
-.login-form {
+.login-form, .onboarding-form {
   display: flex;
   flex-direction: column;
 }
 
-.login-form input {
-  padding: 10px;
+input, textarea, button {
   margin-bottom: 15px;
+  padding: 10px;
   border: none;
   border-radius: 4px;
   background-color: #2b2b2b;
@@ -48,23 +53,34 @@ body {
   font-size: 16px;
 }
 
-/* Placeholder text color */
-.login-form input::placeholder {
+input::placeholder, textarea::placeholder {
   color: #cccccc;
 }
 
-/* Button styling */
-.login-form button {
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
+button {
   background-color: #4caf50;
-  color: white;
-  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.login-form button:hover {
+button:hover {
   background-color: #45a049;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.social-links a {
+  display: inline-block;
+  margin: 0 10px;
+  color: #1da1f2;
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  text-decoration: underline;
 }

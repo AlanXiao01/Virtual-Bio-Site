@@ -291,3 +291,52 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+
+function saveProfileData(userId, displayName, description, bgColor, textColor, instagram, tiktok, twitter) {
+  database.ref('profiles/' + userId).set({
+    displayName: displayName,
+    description: description,
+    bgColor: bgColor,
+    textColor: textColor,
+    instagram: instagram,
+    tiktok: tiktok,
+    twitter: twitter
+  }).then(() => {
+    displayProfile(userId);
+  }).catch((error) => {
+    console.error("Error saving profile data:", error);
+  });
+}
+
+function displayProfile(userId) {
+  database.ref('profiles/' + userId).once('value').then((snapshot) => {
+    const profile = snapshot.val();
+    if (profile) {
+      document.getElementById('profile-page').style.display = 'block';
+      document.getElementById('display-name-display').textContent = profile.displayName;
+      document.getElementById('profile-description-display').textContent = profile.description;
+      document.body.style.backgroundColor = profile.bgColor;
+      document.body.style.color = profile.textColor;
+      document.getElementById('instagram-link').href = profile.instagram;
+      document.getElementById('tiktok-link').href = profile.tiktok;
+      document.getElementById('twitter-link').href = profile.twitter;
+    } else {
+      alert('Bio not found for this user.');
+    }
+  }).catch((error) => {
+    console.error("Error retrieving profile data:", error);
+  });
+}
+
+window.onload = function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const userId = urlParams.get('user');
+
+  if (userId) {
+    displayProfile(userId); // If bio exists, display it
+  } else {
+    document.getElementById('login-page').style.display = 'block';
+  }
+};
+
+

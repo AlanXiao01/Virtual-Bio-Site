@@ -95,3 +95,178 @@ window.onload = function () {
     document.getElementById('login-page').style.display = 'block';
   }
 };
+
+function saveProfileData(userId, displayName, description, bgColor, textColor, instagram, tiktok, twitter) {
+  // Get existing profiles or initialize an empty object
+  let profiles = JSON.parse(localStorage.getItem('profiles')) || {};
+
+  // Save the new profile data
+  profiles[userId] = {
+    displayName: displayName,
+    description: description,
+    bgColor: bgColor,
+    textColor: textColor,
+    instagram: instagram,
+    tiktok: tiktok,
+    twitter: twitter,
+    profilePic: localStorage.getItem(`${userId}-profilePic`)  // Save profilePic separately
+  };
+
+  // Update the profiles object in localStorage
+  localStorage.setItem('profiles', JSON.stringify(profiles));
+
+  // Display the new profile
+  displayProfile(userId);
+}
+
+function displayProfile(userId) {
+  const profiles = JSON.parse(localStorage.getItem('profiles'));
+
+  // If the user profile exists, display it
+  if (profiles && profiles[userId]) {
+    const profile = profiles[userId];
+
+    document.getElementById('profile-page').style.display = 'block';
+    document.getElementById('profile-pic-display').src = profile.profilePic || '#';
+    document.getElementById('display-name-display').textContent = profile.displayName;
+    document.getElementById('profile-description-display').textContent = profile.description;
+    document.body.style.backgroundColor = profile.bgColor;
+    document.body.style.color = profile.textColor;
+
+    document.getElementById('instagram-link').href = profile.instagram;
+    document.getElementById('tiktok-link').href = profile.tiktok;
+    document.getElementById('twitter-link').href = profile.twitter;
+
+    // Generate the sharable link
+    const sharableLink = `${window.location.origin}?user=${userId}`;
+    document.getElementById('sharable-link').value = sharableLink;
+  } else {
+    alert('Bio not found for this user.');
+  }
+}
+
+document.getElementById('login-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const username = document.getElementById('login-username').value;
+
+  // Get the profiles object
+  const profiles = JSON.parse(localStorage.getItem('profiles')) || {};
+
+  if (profiles[username]) {
+    displayProfile(username);
+  } else {
+    alert('No bio found for this username. Please create one.');
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('onboarding-page').style.display = 'block';
+  }
+});
+
+document.getElementById('login-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const username = document.getElementById('login-username').value;
+
+  // Retrieve profiles from localStorage
+  const profiles = JSON.parse(localStorage.getItem('profiles')) || {};
+
+  if (profiles[username]) {
+    displayProfile(username);
+  } else {
+    alert('No bio found for this username. Please create one.');
+    document.getElementById('login-page').style.display = 'none';
+    document.getElementById('onboarding-page').style.display = 'block';
+  }
+});
+
+document.getElementById('onboarding-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const userId = document.getElementById('user-id').value;
+  const displayName = document.getElementById('display-name').value;
+  const description = document.getElementById('profile-description').value;
+  const bgColor = document.getElementById('bg-color').value;
+  const textColor = document.getElementById('text-color').value;
+  const instagram = document.getElementById('instagram').value;
+  const tiktok = document.getElementById('tiktok').value;
+  const twitter = document.getElementById('twitter').value;
+
+  const profilePic = document.getElementById('profile-pic').files[0];
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    localStorage.setItem(`${userId}-profilePic`, e.target.result);
+    saveProfileData(userId, displayName, description, bgColor, textColor, instagram, tiktok, twitter);
+  };
+  reader.readAsDataURL(profilePic);
+});
+
+function saveProfileData(userId, displayName, description, bgColor, textColor, instagram, tiktok, twitter) {
+  let profiles = JSON.parse(localStorage.getItem('profiles')) || {};
+
+  profiles[userId] = {
+    displayName: displayName,
+    description: description,
+    bgColor: bgColor,
+    textColor: textColor,
+    instagram: instagram,
+    tiktok: tiktok,
+    twitter: twitter,
+    profilePic: localStorage.getItem(`${userId}-profilePic`)
+  };
+
+  localStorage.setItem('profiles', JSON.stringify(profiles));
+  displayProfile(userId);
+}
+
+function displayProfile(userId) {
+  const profiles = JSON.parse(localStorage.getItem('profiles'));
+
+  if (profiles && profiles[userId]) {
+    const profile = profiles[userId];
+
+    document.getElementById('profile-page').style.display = 'block';
+    document.getElementById('profile-pic-display').src = profile.profilePic || '#';
+    document.getElementById('display-name-display').textContent = profile.displayName;
+    document.getElementById('profile-description-display').textContent = profile.description;
+    document.body.style.backgroundColor = profile.bgColor;
+    document.body.style.color = profile.textColor;
+
+    document.getElementById('instagram-link').href = profile.instagram;
+    document.getElementById('tiktok-link').href = profile.tiktok;
+    document.getElementById('twitter-link').href = profile.twitter;
+
+    const sharableLink = `${window.location.origin}?user=${userId}`;
+    document.getElementById('sharable-link').value = sharableLink;
+  } else {
+    alert('Bio not found for this user.');
+  }
+}
+
+document.getElementById('edit-bio-btn').addEventListener('click', () => {
+  document.getElementById('profile-page').style.display = 'none';
+  document.getElementById('onboarding-page').style.display = 'block';
+});
+
+document.getElementById('copy-link-btn').addEventListener('click', () => {
+  const sharableLink = document.getElementById('sharable-link').value;
+  navigator.clipboard.writeText(sharableLink).then(() => {
+    alert('Link copied to clipboard!');
+  }).catch((err) => {
+    console.error('Failed to copy: ', err);
+  });
+});
+
+window.onload = function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const userId = urlParams.get('user');
+
+  if (userId) {
+    const profiles = JSON.parse(localStorage.getItem('profiles'));
+    if (profiles && profiles[userId]) {
+      displayProfile(userId);
+    } else {
+      alert('Bio not found for this user.');
+    }
+  } else {
+    document.getElementById('login-page').style.display = 'block';
+  }
+};
+

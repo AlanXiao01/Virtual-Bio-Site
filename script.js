@@ -270,3 +270,24 @@ window.onload = function () {
   }
 };
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyANaN9p_urukmuU27n1-wBMwe7RJTcMo9c",
+  authDomain: "virtural-bio.firebaseapp.com",
+  projectId: "virtural-bio",
+  storageBucket: "virtural-bio.appspot.com",
+  messagingSenderId: "128602908703",
+  appId: "1:128602908703:web:cfc350cab01ec286614d2a",
+  measurementId: "G-TE65MVY631"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
